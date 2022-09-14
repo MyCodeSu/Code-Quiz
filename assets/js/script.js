@@ -3,6 +3,8 @@ let answer1 = document.getElementById("btn0");
 let answer2 = document.getElementById("btn1");
 let answer3 = document.getElementById("btn2");
 let answer4 = document.getElementById("btn3");
+let mainTextBox = document.querySelectorAll("h3");
+
 
 // function for quiz countdown
 
@@ -38,16 +40,24 @@ var quizContent = [
 ];
 
 
-document.querySelector("button").addEventListener("click", function () {
-    // make h3 content disappear at start of quiz
-   document.getElementById("btn1").classList.remove("invisible");
-   document.getElementById("btn2").classList.remove("invisible");
-   document.getElementById("btn3").classList.remove("invisible");
+// timer function
 
-       for (var i = 0; i=quizContent.length; i++){
+// function to reveal hidden buttons
+function revealHiddenButtons() {
+    answer2.classList.remove("invisible");
+    answer3.classList.remove("invisible");
+    answer4.classList.remove("invisible");
+}
 
-       }
-    });
+
+
+// function to change questions and answers
+
+// function to indicate right or wrong answers
+
+// function to tally quiz score
+
+
 
 
 
