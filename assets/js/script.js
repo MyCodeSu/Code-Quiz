@@ -1,5 +1,8 @@
 var quizScore = 0;
-
+let answer1 = document.getElementById("btn0");
+let answer2 = document.getElementById("btn1");
+let answer3 = document.getElementById("btn2");
+let answer4 = document.getElementById("btn3");
 
 // function for quiz countdown
 
@@ -35,17 +38,17 @@ var quizContent = [
 ];
 
 
-document.querySelectorAll("#Start").addEventListener("click", function (){
+document.querySelector("button").addEventListener("click", function () {
+    // make h3 content disappear at start of quiz
+   document.getElementById("btn1").classList.remove("invisible");
+   document.getElementById("btn2").classList.remove("invisible");
+   document.getElementById("btn3").classList.remove("invisible");
 
-// make h3 content disappear at start of quiz
-function begin () {
-document.querySelectorAll(h3).add("hide");
-document.querySelectorAll("#Start").add("hide");
-};
+       for (var i = 0; i=quizContent.length; i++){
 
-begin();
+       }
+    });
 
-for ( var i = 0; i < quizContent.length; i++ ) {
-var quizQuestion = document.createElement(h3)[i]
-}
-});
+
+
+
