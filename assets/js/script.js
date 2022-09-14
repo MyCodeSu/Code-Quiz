@@ -49,9 +49,24 @@ function revealHiddenButtons() {
     answer4.classList.remove("invisible");
 }
 
-
-
 // function to change questions and answers
+
+
+document.querySelector("button").addEventListener("click", function (i) {
+    revealHiddenButtons();
+
+    for (var i = 0; i < quizContent.length; i++) {
+
+        document.querySelector("h3").innerText = quizContent[i].question;
+        answer1.innerText = quizContent[i].options[0];
+        answer2.innerText = quizContent[i].options[1];
+        answer3.innerText = quizContent[i].options[2];
+        answer4.innerText = quizContent[i].options[3];
+        break;
+    }
+})
+
+
 
 // function to indicate right or wrong answers
 
