@@ -65,13 +65,15 @@ function countdown() {
 
     function updateCountdown() {
         if (seconds <= 0) {
-            clearInterval(seconds);
+            clearInterval(updateCountdown);
+            seconds = 0;
             countdownEl.innerHTML = "Time's up!";
-        } else if (quizContent === quizContent.length) {
-            clearInterval(seconds);
+        } else if (iteration === quizContent.length) {
+            clearInterval(updateCountdown);
+            seconds = 0;
         } else {
-            countdownEl.innerHTML = `Time remaining: ${seconds} seconds`
-        }
+            countdownEl.innerHTML = `Time remaining: ${seconds} seconds`;
+        };
         seconds--;
     }
 }
@@ -85,18 +87,32 @@ function revealHiddenButtons() {
     answer4.classList.remove("invisible");
 }
 
+// function to hide quiz content
+
+function hideButtons() {
+    startButton.classList.add("invisible");
+    answer1.classList.add("invisible");
+    answer2.classList.add("invisible");
+    answer3.classList.add("invisible");
+    answer4.classList.add("invisible");
+    document.getElementById("highscore").classList.add("invisible");
+    document.getElementById("highscore").innerText = ``;
+}
 
 // function to change questions and answers
 
 function revealQuiz() {
     revealHiddenButtons();
-
-    document.querySelector("h3").innerText = quizContent[iteration].question;
-    answer1.innerText = quizContent[iteration].options[0];
-    answer2.innerText = quizContent[iteration].options[1];
-    answer3.innerText = quizContent[iteration].options[2];
-    answer4.innerText = quizContent[iteration].options[3];
-
+    if (iteration > 4) {
+        hideButtons();
+        document.querySelector("h3").innerText = "The quiz is over. Please enter your initials for the high score."
+    } else {
+        document.querySelector("h3").innerText = quizContent[iteration].question;
+        answer1.innerText = quizContent[iteration].options[0];
+        answer2.innerText = quizContent[iteration].options[1];
+        answer3.innerText = quizContent[iteration].options[2];
+        answer4.innerText = quizContent[iteration].options[3];
+    }
 }
 
 // function to indicate right or wrong answers
@@ -109,6 +125,9 @@ var checkAnswer = function (event) {
 
         var userAnswer = document.querySelector("#feedback");
 
+        if (iteration > 4) {
+            hideButtons()
+        }
         if (clickedAnswer === answerText) {
 
             feedbackMessage.innerHTML = "Correct!";
@@ -119,7 +138,7 @@ var checkAnswer = function (event) {
         } else {
             feedbackMessage.innerHTML = "Incorrect!";
             feedbackDiv.style.color = "red";
-            seconds -= 10;
+            seconds = seconds - 10;
             iteration++;
         }
     }
