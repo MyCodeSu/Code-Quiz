@@ -107,12 +107,12 @@ function revealQuiz() {
         hideButtons();
         document.querySelector("h3").innerText = "The quiz is over. Please enter your initials for the high score."
     } else {
-        document.querySelector("h3").innerText = quizContent[iteration].question;
-        answer1.innerText = quizContent[iteration].options[0];
-        answer2.innerText = quizContent[iteration].options[1];
-        answer3.innerText = quizContent[iteration].options[2];
-        answer4.innerText = quizContent[iteration].options[3];
-    }
+            document.querySelector("h3").innerText = quizContent[iteration].question;
+            answer1.innerText = quizContent[iteration].options[0];
+            answer2.innerText = quizContent[iteration].options[1];
+            answer3.innerText = quizContent[iteration].options[2];
+            answer4.innerText = quizContent[iteration].options[3];
+        }
 }
 
 // function to indicate right or wrong answers
@@ -145,6 +145,9 @@ var checkAnswer = function (event) {
 }
 
 // function to tally quiz score
+
+// calling all functions
+
 document.querySelector("body").onclick = function () {
     revealQuiz();
     countdown();
