@@ -70,8 +70,8 @@ function countdown() {
             clearInterval(seconds);
         } else {
             countdownEl.innerHTML = `Time remaining: ${seconds} seconds`
-            seconds--;
         }
+        seconds--;
     }
 }
 
@@ -97,12 +97,14 @@ function revealQuiz() {
 }
 
 // function to indicate right or wrong answers
-function checkAnswer(event) {
+var checkAnswer = function(event) {
     var selectedAnswer = event.target;
+    console.log(event.target);
     if (selectedAnswer.matches(".options")) {
         var correctAnswer = quizContent[iteration].answer;
         var answerText = quizContent[iteration].options[correctAnswer];
         var clickedAnswer = selectedAnswer.innerText;
+        console.log(clickedAnswer);
         var userAnswer = document.querySelector("#feedback");
 
         if (clickedAnswer === answerText) {
@@ -124,7 +126,6 @@ function checkAnswer(event) {
 document.querySelector("button").onclick = function () {
     revealQuiz();
     countdown();
-    seconds = 120;
 }
 
-document.querySelector("button").addEventListener("click", checkAnswer);
+document.querySelector("body").addEventListener("click", checkAnswer);
