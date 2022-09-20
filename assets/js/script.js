@@ -56,25 +56,23 @@ var quizContent = [
 // timer function
 
 function countdown() {
-let seconds = 120;
+    let seconds = 120;
 
-const countdownEl = document.getElementById('countdown');
+    const countdownEl = document.getElementById('countdown');
 
-setInterval(updateCountdown, 1000);
+    setInterval(updateCountdown, 1000);
 
-
-
-function updateCountdown() {
-    if (seconds <= 0) {
-        clearInterval(seconds);
-        countdownEl.innerHTML = "Time's up!";
-    } else if ( quizContent === quizContent.length ) {
-        clearInterval(seconds);
-    } else {
-        countdownEl.innerHTML = `Time remaining: ${seconds} seconds`
-    seconds--;
+    function updateCountdown() {
+        if (seconds <= 0) {
+            clearInterval(seconds);
+            countdownEl.innerHTML = "Time's up!";
+        } else if (quizContent === quizContent.length) {
+            clearInterval(seconds);
+        } else {
+            countdownEl.innerHTML = `Time remaining: ${seconds} seconds`
+            seconds--;
+        }
     }
-}
 }
 
 // function to reveal hidden buttons
@@ -102,6 +100,24 @@ document.querySelector("button").addEventListener("click", function () {
 
 
 // function to indicate right or wrong answers
+function checkAnswer(event) {
+    var selectedAnswer = event.target;
+    if (selectedAnswer.matches(".options")) {
+        var correctAnswer = quizContent[iteration].answer;
+        var answerText = quizContent[iteration].options[correctAnswer];
+        var clickedAnswer = selectedAnswer.innerText;
+        var userAnswer = document.querySelector("#feedback");
+
+        if (clickedAnswer === answerText) {
+            userAnswer.append("p").innerHTML = "Correct!";
+            userAnswer.style.color = "green";
+        } else {
+            userAnswer.append("p").innerHTML = "Incorrect!";
+            userAnswer.style.color = "red";
+            seconds -= 10;
+        }
+    }
+}
 
 // function to tally quiz score
 
