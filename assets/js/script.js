@@ -15,12 +15,13 @@ let answer1 = document.getElementById("btn0");
 let answer2 = document.getElementById("btn1");
 let answer3 = document.getElementById("btn2");
 let answer4 = document.getElementById("btn3");
+let startButton = document.querySelector("button");
 let mainTextBox = document.querySelectorAll("h3");
 let iteration = 0;
 let seconds = 120;
-
-
-// function for quiz countdown
+const feedbackDiv = document.getElementById("feedback");
+const feedbackMessage = document.createElement("p");
+feedbackDiv.append(feedbackMessage);
 
 // function for score tracking
 
@@ -29,27 +30,27 @@ var quizContent = [
     {
         question: 'Commonly used data types DO Not include:',
         options: ['strings', 'booleans', 'alerts', 'numbers'],
-        answer: 2
+        answer: 1
     },
     {
         question: 'The condition in an if / else statement is enclosed with __________.',
         options: ['quotes', 'curly brackets', 'parenthesis', 'square brackets'],
-        answer: 3
+        answer: 2
     },
     {
         question: 'Arrays in JavaScript can be used to store __________.',
         options: ['numbers and strings', 'other arrays', 'booleans', 'all of the above'],
-        answer: 4
+        answer: 3
     },
     {
         question: 'String values must be enclosed within __________ when being assigned to variables.',
         options: ['commas', 'curly brackets', 'quotes', 'parenthesis'],
-        answer: 2
+        answer: 1
     },
     {
         question: 'A very useful tool used during development and debugging for printing content to the debugger is:',
         options: ['JavaScript', 'terminal/bash', 'for loops', 'console.log'],
-        answer: 3
+        answer: 2
     }
 ];
 
@@ -77,6 +78,8 @@ function countdown() {
 
 // function to reveal hidden buttons
 function revealHiddenButtons() {
+    startButton.classList.add("invisible");
+    answer1.classList.remove("invisible");
     answer2.classList.remove("invisible");
     answer3.classList.remove("invisible");
     answer4.classList.remove("invisible");
@@ -88,34 +91,34 @@ function revealHiddenButtons() {
 function revealQuiz() {
     revealHiddenButtons();
 
-        document.querySelector("h3").innerText = quizContent[iteration].question;
-        answer1.innerText = quizContent[iteration].options[0];
-        answer2.innerText = quizContent[iteration].options[1];
-        answer3.innerText = quizContent[iteration].options[2];
-        answer4.innerText = quizContent[iteration].options[3];
+    document.querySelector("h3").innerText = quizContent[iteration].question;
+    answer1.innerText = quizContent[iteration].options[0];
+    answer2.innerText = quizContent[iteration].options[1];
+    answer3.innerText = quizContent[iteration].options[2];
+    answer4.innerText = quizContent[iteration].options[3];
 
 }
 
 // function to indicate right or wrong answers
-var checkAnswer = function(event) {
+var checkAnswer = function (event) {
     var selectedAnswer = event.target;
-    console.log(event.target);
-    if (selectedAnswer.matches(".options")) {
+    if (selectedAnswer.matches(".btn")) {
         var correctAnswer = quizContent[iteration].answer;
         var answerText = quizContent[iteration].options[correctAnswer];
         var clickedAnswer = selectedAnswer.innerText;
-        console.log(clickedAnswer);
+
         var userAnswer = document.querySelector("#feedback");
 
         if (clickedAnswer === answerText) {
-            userAnswer.append("p").innerHTML = "Correct!";
-            userAnswer.style.color = "green";
+
+            feedbackMessage.innerHTML = "Correct!";
+            feedbackDiv.style.color = "green";
             quizScore++;
-            document.getElementById('highscore').innerText = `High Score: ${quizScore}`;
+            document.getElementById("highscore").innerText = `High Score: ${quizScore}`;
             iteration++;
         } else {
-            userAnswer.append("p").innerHTML = "Incorrect!";
-            userAnswer.style.color = "red";
+            feedbackMessage.innerHTML = "Incorrect!";
+            feedbackDiv.style.color = "red";
             seconds -= 10;
             iteration++;
         }
@@ -123,9 +126,9 @@ var checkAnswer = function(event) {
 }
 
 // function to tally quiz score
-document.querySelector("button").onclick = function () {
+document.querySelector("body").onclick = function () {
     revealQuiz();
     countdown();
 }
 
-document.querySelector("body").addEventListener("click", checkAnswer);
+document.getElementById("button-section").addEventListener("click", checkAnswer);
