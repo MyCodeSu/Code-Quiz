@@ -17,6 +17,7 @@ let answer3 = document.getElementById("btn2");
 let answer4 = document.getElementById("btn3");
 let mainTextBox = document.querySelectorAll("h3");
 let iteration = 0;
+let seconds = 120;
 
 
 // function for quiz countdown
@@ -56,7 +57,6 @@ var quizContent = [
 // timer function
 
 function countdown() {
-    let seconds = 120;
 
     const countdownEl = document.getElementById('countdown');
 
@@ -85,19 +85,16 @@ function revealHiddenButtons() {
 
 // function to change questions and answers
 
-
-document.querySelector("button").addEventListener("click", function () {
+function revealQuiz() {
     revealHiddenButtons();
-    countdown();
 
-    document.querySelector("h3").innerText = quizContent[iteration].question;
-    answer1.innerText = quizContent[iteration].options[0];
-    answer2.innerText = quizContent[iteration].options[1];
-    answer3.innerText = quizContent[iteration].options[2];
-    answer4.innerText = quizContent[iteration].options[3];
-})
+        document.querySelector("h3").innerText = quizContent[iteration].question;
+        answer1.innerText = quizContent[iteration].options[0];
+        answer2.innerText = quizContent[iteration].options[1];
+        answer3.innerText = quizContent[iteration].options[2];
+        answer4.innerText = quizContent[iteration].options[3];
 
-
+}
 
 // function to indicate right or wrong answers
 function checkAnswer(event) {
@@ -111,18 +108,23 @@ function checkAnswer(event) {
         if (clickedAnswer === answerText) {
             userAnswer.append("p").innerHTML = "Correct!";
             userAnswer.style.color = "green";
+            quizScore++;
+            document.getElementById('highscore').innerText = `High Score: ${quizScore}`;
+            iteration++;
         } else {
             userAnswer.append("p").innerHTML = "Incorrect!";
             userAnswer.style.color = "red";
             seconds -= 10;
+            iteration++;
         }
     }
 }
 
 // function to tally quiz score
+document.querySelector("button").onclick = function () {
+    revealQuiz();
+    countdown();
+    seconds = 120;
+}
 
-
-
-
-
-
+document.querySelector("button").addEventListener("click", checkAnswer);
