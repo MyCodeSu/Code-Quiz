@@ -63,7 +63,7 @@ function countdown() {
 
     setInterval(updateCountdown, 1000);
 
-    function updateCountdown() {
+    var updateCountdown = setInterval(function () {
         if (seconds <= 0) {
             clearInterval(updateCountdown);
             seconds = 0;
@@ -75,7 +75,7 @@ function countdown() {
             countdownEl.innerHTML = `Time remaining: ${seconds} seconds`;
         };
         seconds--;
-    }
+    }, 1000)
 }
 
 // function to reveal hidden buttons
@@ -107,12 +107,12 @@ function revealQuiz() {
         hideButtons();
         document.querySelector("h3").innerText = "The quiz is over. Please enter your initials for the high score."
     } else {
-            document.querySelector("h3").innerText = quizContent[iteration].question;
-            answer1.innerText = quizContent[iteration].options[0];
-            answer2.innerText = quizContent[iteration].options[1];
-            answer3.innerText = quizContent[iteration].options[2];
-            answer4.innerText = quizContent[iteration].options[3];
-        }
+        document.querySelector("h3").innerText = quizContent[iteration].question;
+        answer1.innerText = quizContent[iteration].options[0];
+        answer2.innerText = quizContent[iteration].options[1];
+        answer3.innerText = quizContent[iteration].options[2];
+        answer4.innerText = quizContent[iteration].options[3];
+    }
 }
 
 // function to indicate right or wrong answers
@@ -148,7 +148,7 @@ var checkAnswer = function (event) {
 
 // calling all functions
 
-document.querySelector("body").onclick = function () {
+document.querySelector("button").onclick = function () {
     revealQuiz();
     countdown();
 }
