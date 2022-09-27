@@ -18,7 +18,7 @@ let answer4 = document.getElementById("btn3");
 let startButton = document.querySelector("button");
 let mainTextBox = document.querySelectorAll("h3");
 let iteration = 0;
-let seconds = 120;
+let seconds = 5;
 const feedbackDiv = document.getElementById("feedback");
 const feedbackMessage = document.createElement("p");
 feedbackDiv.append(feedbackMessage);
