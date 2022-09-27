@@ -61,9 +61,8 @@ function countdown() {
 
     const countdownEl = document.getElementById('countdown');
 
-    setInterval(updateCountdown, 1000);
-
     var updateCountdown = setInterval(function () {
+        seconds--;
         if (seconds <= 0) {
             clearInterval(updateCountdown);
             seconds = 0;
@@ -74,7 +73,7 @@ function countdown() {
         } else {
             countdownEl.innerHTML = `Time remaining: ${seconds} seconds`;
         };
-        seconds--;
+        
     }, 1000)
 }
 
@@ -103,7 +102,12 @@ function hideButtons() {
 
 function revealQuiz() {
     revealHiddenButtons();
-    if (iteration > 4) {
+
+    if (seconds <= 0) {
+        hideButtons();
+        document.querySelector("h3").innerText = "The quiz is over. Please enter your initials for the high score."
+    }
+    else if (iteration > 4) {
         hideButtons();
         document.querySelector("h3").innerText = "The quiz is over. Please enter your initials for the high score."
     } else {
@@ -148,7 +152,7 @@ var checkAnswer = function (event) {
 
 // calling all functions
 
-document.querySelector("button").onclick = function () {
+document.getElementById("button-section").onclick = function () {
     revealQuiz();
     countdown();
 }
