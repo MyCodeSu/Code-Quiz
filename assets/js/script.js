@@ -6,9 +6,9 @@
 // WHEN I answer a question incorrectly
 // THEN time is subtracted from the clock                       DONE
 // WHEN all questions are answered or the timer reaches 0
-// THEN the game is over
+// THEN the game is over                                        DONE
 // WHEN the game is over
-// THEN I can save my initials and score
+// THEN I can save my initials and score                        
 
 var quizScore = 0;
 let answer1 = document.getElementById("btn0");
