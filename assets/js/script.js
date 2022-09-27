@@ -18,7 +18,7 @@ let answer4 = document.getElementById("btn3");
 let startButton = document.querySelector("button");
 let mainTextBox = document.querySelectorAll("h3");
 let iteration = 0;
-let seconds = 50;
+let seconds = 60;
 const feedbackDiv = document.getElementById("feedback");
 const feedbackMessage = document.createElement("p");
 feedbackDiv.append(feedbackMessage);
@@ -62,6 +62,7 @@ var quizContent = [
 function countdown() {
 
     const countdownEl = document.getElementById('countdown');
+    seconds = 60;
 
     var updateCountdown = setInterval(function () {
         seconds--;
@@ -72,11 +73,15 @@ function countdown() {
             countdownEl.innerHTML = "Time's up!";
             revealQuiz();
             highScore();
+            restartButton();
+            document.getElementById("highScoreContainer").classList.remove("invisible");
         } else if (iteration === quizContent.length) {
             clearInterval(updateCountdown);
             seconds = 0;
             revealQuiz();
             highScore();
+            restartButton();
+            document.getElementById("highScoreContainer").classList.remove("invisible");
         } else {
             countdownEl.innerHTML = `Time remaining: ${seconds} seconds`;
         };
@@ -109,6 +114,7 @@ function hideButtons() {
 
 function revealQuiz() {
     revealHiddenButtons();
+    document.getElementById("highScoreContainer").classList.add("invisible");
 
     if (seconds <= 0) {
         hideButtons();
@@ -176,14 +182,19 @@ function highScore() {
     }
 }
 
-    // calling all functions
+// function to restart quiz
+function restartButton() {
+    document.getElementById("start-button").classList.remove("invisible");
+}
 
-    document.getElementById("start-button").onclick = function () {
-        countdown();
-    }
+// calling all functions
 
-    document.getElementById("button-section").onclick = function () {
-        revealQuiz();
-    }
+document.getElementById("start-button").onclick = function () {
+    countdown();
+}
 
-    document.getElementById("button-section").addEventListener("click", checkAnswer);
+document.getElementById("button-section").onclick = function () {
+    revealQuiz();
+}
+
+document.getElementById("button-section").addEventListener("click", checkAnswer);
