@@ -69,9 +69,12 @@ function countdown() {
             seconds = 0;
             revealQuiz();
             countdownEl.innerHTML = "Time's up!";
+            highScore();
         } else if (iteration === quizContent.length) {
             clearInterval(updateCountdown);
+            revealQuiz();
             seconds = 0;
+            highScore();
         } else {
             countdownEl.innerHTML = `Time remaining: ${seconds} seconds`;
         };
@@ -150,7 +153,16 @@ var checkAnswer = function (event) {
     }
 }
 
-// function to tally quiz score
+// function record initials and high score
+function highScore () {
+    var initials = prompt("The quiz is over. Please enter your initials.");
+    var highScoreTime = seconds;
+
+    localStorage.setItem("initials", initials);
+    localStorage.setItem("finishTime", highScoreTime);
+    localStorage.setItem("score", quizScore);
+    
+}
 
 // calling all functions
 
