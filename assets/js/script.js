@@ -22,6 +22,8 @@ let seconds = 50;
 const feedbackDiv = document.getElementById("feedback");
 const feedbackMessage = document.createElement("p");
 feedbackDiv.append(feedbackMessage);
+var highScoreArray = [];
+var initialsArray = [];
 
 // function for score tracking
 
@@ -67,18 +69,18 @@ function countdown() {
         if (seconds <= 0) {
             clearInterval(updateCountdown);
             seconds = 0;
-            revealQuiz();
             countdownEl.innerHTML = "Time's up!";
+            revealQuiz();
             highScore();
         } else if (iteration === quizContent.length) {
             clearInterval(updateCountdown);
-            revealQuiz();
             seconds = 0;
+            revealQuiz();
             highScore();
         } else {
             countdownEl.innerHTML = `Time remaining: ${seconds} seconds`;
         };
-        
+
     }, 1000)
 }
 
@@ -154,24 +156,34 @@ var checkAnswer = function (event) {
 }
 
 // function record initials and high score
-function highScore () {
+function highScore() {
     var initials = prompt("The quiz is over. Please enter your initials.");
-    var highScoreTime = seconds;
 
-    localStorage.setItem("initials", initials);
-    localStorage.setItem("finishTime", highScoreTime);
-    localStorage.setItem("score", quizScore);
-    
+    var highScoreContainer = document.getElementById("highScoreContainer");
+
+    const scoreData = document.createElement("p");
+    scoreData.setAttribute("id", "highScoreP");
+
+    // tableContainer.removeChild(table);
+
+    localStorage.setItem("initials", JSON.stringify(initials));
+    initialsArray.push(JSON.parse(localStorage.getItem("initials")));
+    localStorage.setItem("score", JSON.stringify(quizScore));
+    highScoreArray.push(JSON.parse(localStorage.getItem("score")));
+
+    for (var s = 0; s < initials.length; s++) {
+        highScoreContainer.appendChild(scoreData).innerText = "Initial & Score: " + initialsArray[s] + " - " + highScoreArray[s];
+    }
 }
 
-// calling all functions
+    // calling all functions
 
-document.getElementById("start-button").onclick = function() {
-    countdown();
-}
+    document.getElementById("start-button").onclick = function () {
+        countdown();
+    }
 
-document.getElementById("button-section").onclick = function () {
-    revealQuiz();
-}
+    document.getElementById("button-section").onclick = function () {
+        revealQuiz();
+    }
 
-document.getElementById("button-section").addEventListener("click", checkAnswer);
+    document.getElementById("button-section").addEventListener("click", checkAnswer);
