@@ -18,7 +18,7 @@ let answer4 = document.getElementById("btn3");
 let startButton = document.querySelector("button");
 let mainTextBox = document.querySelectorAll("h3");
 let iteration = 0;
-let seconds = 5;
+let seconds = 50;
 const feedbackDiv = document.getElementById("feedback");
 const feedbackMessage = document.createElement("p");
 feedbackDiv.append(feedbackMessage);
@@ -63,9 +63,11 @@ function countdown() {
 
     var updateCountdown = setInterval(function () {
         seconds--;
+        console.log(seconds);
         if (seconds <= 0) {
             clearInterval(updateCountdown);
             seconds = 0;
+            revealQuiz();
             countdownEl.innerHTML = "Time's up!";
         } else if (iteration === quizContent.length) {
             clearInterval(updateCountdown);
