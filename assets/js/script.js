@@ -1,10 +1,10 @@
 // GIVEN I am taking a code quiz
 // WHEN I click the start button
-// THEN a timer starts and I am presented with a question
+// THEN a timer starts and I am presented with a question       DONE
 // WHEN I answer a question
-// THEN I am presented with another question
+// THEN I am presented with another question                    DONE
 // WHEN I answer a question incorrectly
-// THEN time is subtracted from the clock
+// THEN time is subtracted from the clock                       DONE
 // WHEN all questions are answered or the timer reaches 0
 // THEN the game is over
 // WHEN the game is over
@@ -152,9 +152,12 @@ var checkAnswer = function (event) {
 
 // calling all functions
 
+document.getElementById("start-button").onclick = function() {
+    countdown();
+}
+
 document.getElementById("button-section").onclick = function () {
     revealQuiz();
-    countdown();
 }
 
 document.getElementById("button-section").addEventListener("click", checkAnswer);
