@@ -168,17 +168,17 @@ function highScore() {
     var highScoreContainer = document.getElementById("highScoreContainer");
 
     const scoreData = document.createElement("p");
-    scoreData.setAttribute("id", "highScoreP");
+    scoreData.setAttribute("class", "highScoreP");
 
     // tableContainer.removeChild(table);
 
-    localStorage.setItem("initials", JSON.stringify(initials));
-    initialsArray.push(JSON.parse(localStorage.getItem("initials")));
-    localStorage.setItem("score", JSON.stringify(quizScore));
-    highScoreArray.push(JSON.parse(localStorage.getItem("score")));
+    var scoreObj = { Initials: initials, Score: quizScore };
+    highScoreArray.push(scoreObj);
+    localStorage.setItem("highScoreArray", JSON.stringify(highScoreArray));
+    var storedArrayGet = JSON.parse(localStorage.getItem("highScoreArray"));
 
-    for (var s = 0; s < initials.length; s++) {
-        highScoreContainer.appendChild(scoreData).innerText = "Initial & Score: " + initialsArray[s] + " - " + highScoreArray[s];
+    for (var s = 0; s < highScoreArray.length; s++) {
+        highScoreContainer.appendChild(scoreData).innerText = storedArrayGet.Initials[s];
     }
 }
 
