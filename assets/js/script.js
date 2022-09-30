@@ -8,7 +8,7 @@
 // WHEN all questions are answered or the timer reaches 0
 // THEN the game is over                                        DONE
 // WHEN the game is over
-// THEN I can save my initials and score                        
+// THEN I can save my initials and score                        DONE            
 
 var quizScore = 0;
 let answer1 = document.getElementById("btn0");
@@ -18,12 +18,12 @@ let answer4 = document.getElementById("btn3");
 let startButton = document.querySelector("button");
 let mainTextBox = document.querySelectorAll("h3");
 let iteration = 0;
-let seconds = 60;
+let seconds = 80;
 const feedbackDiv = document.getElementById("feedback");
 const feedbackMessage = document.createElement("p");
 feedbackDiv.append(feedbackMessage);
 var highScoreArray = [];
-var initialsArray = [];
+
 
 // function for score tracking
 
@@ -62,25 +62,26 @@ var quizContent = [
 function countdown() {
 
     const countdownEl = document.getElementById('countdown');
-    seconds = 60;
 
     var updateCountdown = setInterval(function () {
         seconds--;
-        console.log(seconds);
+        // console.log(seconds);
         if (seconds <= 0) {
             clearInterval(updateCountdown);
             seconds = 0;
             countdownEl.innerHTML = "Time's up!";
-            revealQuiz();
+            // revealQuiz();
             highScore();
             restartButton();
+            hideButtons();
             document.getElementById("highScoreContainer").classList.remove("invisible");
         } else if (iteration === quizContent.length) {
             clearInterval(updateCountdown);
             seconds = 0;
-            revealQuiz();
+            // revealQuiz();
             highScore();
             restartButton();
+            hideButtons();
             document.getElementById("highScoreContainer").classList.remove("invisible");
         } else {
             countdownEl.innerHTML = `Time remaining: ${seconds} seconds`;
@@ -124,6 +125,7 @@ function revealQuiz() {
         hideButtons();
         document.querySelector("h3").innerText = "The quiz is over. Please enter your initials for the high score."
     } else {
+        console.log(iteration);
         document.querySelector("h3").innerText = quizContent[iteration].question;
         answer1.innerText = quizContent[iteration].options[0];
         answer2.innerText = quizContent[iteration].options[1];
@@ -151,13 +153,13 @@ var checkAnswer = function (event) {
             feedbackDiv.style.color = "green";
             quizScore++;
             document.getElementById("highscore").innerText = `High Score: ${quizScore}`;
-            iteration++;
         } else {
             feedbackMessage.innerHTML = "Incorrect!";
             feedbackDiv.style.color = "red";
             seconds = seconds - 10;
-            iteration++;
         }
+        iteration++;
+        revealQuiz();
     }
 }
 
@@ -165,11 +167,10 @@ var checkAnswer = function (event) {
 function highScore() {
     var initials = prompt("The quiz is over. Please enter your initials.");
 
-    var highScoreContainer = document.getElementById("highScoreContainer");
+   
 
-    const scoreData = document.createElement("p");
-    scoreData.setAttribute("class", "highScoreP");
-
+   
+    
     // tableContainer.removeChild(table);
 
     var scoreObj = { Initials: initials, Score: quizScore };
@@ -177,9 +178,20 @@ function highScore() {
     localStorage.setItem("highScoreArray", JSON.stringify(highScoreArray));
     var storedArrayGet = JSON.parse(localStorage.getItem("highScoreArray"));
 
-    for (var s = 0; s < highScoreArray.length; s++) {
-        highScoreContainer.appendChild(scoreData).innerText = storedArrayGet.Initials[s];
-    }
+storedArrayGet.forEach(function(score) {
+    const scoreData = document.createElement("p");
+    scoreData.setAttribute("class", "highScoreP");
+
+    scoreData.innerText = "Initials:   "+ score.Initials + "   Score:   " + score.Score;
+    var highScoreContainer = document.getElementById("highScoreContainer");
+    highScoreContainer.appendChild(scoreData);
+})
+
+
+    // for (var s = 0; s < highScoreArray.length; s++) {
+    //     scoreData.innerText = storedArrayGet.Initials[s];
+    //     highScoreContainer.appendChild(scoreData);
+    // }
 }
 
 // function to restart quiz
@@ -190,11 +202,16 @@ function restartButton() {
 // calling all functions
 
 document.getElementById("start-button").onclick = function () {
+    highScoreArray = [];
+    quizScore = 0;
+    seconds = 80;
+    iteration= 0;
     countdown();
-}
-
-document.getElementById("button-section").onclick = function () {
     revealQuiz();
 }
+
+// document.getElementById("button-section").onclick = function () {
+//     revealQuiz();
+// }
 
 document.getElementById("button-section").addEventListener("click", checkAnswer);
