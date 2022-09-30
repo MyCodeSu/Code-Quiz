@@ -102,7 +102,7 @@ function revealHiddenButtons() {
 // function to hide quiz content
 
 function hideButtons() {
-    startButton.classList.add("invisible");
+    startButton.classList.remove("invisible");
     answer1.classList.add("invisible");
     answer2.classList.add("invisible");
     answer3.classList.add("invisible");
